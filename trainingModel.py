@@ -1,21 +1,11 @@
-import matplotlib.pyplot as plt 
-from scipy import signal 
-from scipy.io import wavfile as wav 
 import numpy as np 
-from numpy.lib import stride_tricks
-import torch 
-import torchvision 
-from torchvision import transforms
-import cv2 
 import librosa
 import librosa.display
 from sklearn.model_selection import train_test_split
-import pandas as pd
 import os
-from torch.utils.data import Dataset, DataLoader
 import tensorflow as tf
-import keras
 from keras import models, layers
+
 # CONSTANTS
 DIR = "C:\\Users\\shivt\\Code\\BabyBeacon\\Baby-Beacon-Sound-Emotion\\"
 AUDIO_PATH = DIR+"data\\dataset\\"
