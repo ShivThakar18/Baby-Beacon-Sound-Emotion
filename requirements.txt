@@ -1,7 +1,10 @@
-tensorflow
-keras
-numpy
 matplotlib
 scipy
-pydub
+numpy
+torch
+torchvision
+opencv-python
 librosa
+pandas
+tensorflow
+keras
