@@ -109,7 +109,10 @@ Test Accuracy: 81.081%
 | macro avg | 0.85 | 0.81 | 0.81 | 37 |
 | weighted avg | 0.83 | 0.81 | 0.80 | 37 |
 
-![augment_model_test](https://github.com/user-attachments/assets/93a62ea3-b792-4cde-9fda-3af0aa16b07f)
+<p align="center">
+  <img src="[http://some_place.com/image.png](https://github.com/user-attachments/assets/93a62ea3-b792-4cde-9fda-3af0aa16b07f)" />
+</p>
+
 *Augmented Model Testing in testingModel.py*
 
 #### Results for Expanded Dataset Model 
