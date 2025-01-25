@@ -109,10 +109,7 @@ Test Accuracy: 81.081%
 | macro avg | 0.85 | 0.81 | 0.81 | 37 |
 | weighted avg | 0.83 | 0.81 | 0.80 | 37 |
 
-<p align="center">
-  <img src="[augment_model_test](https://github.com/user-attachments/assets/d8796496-f5d0-4ae2-8004-c3f890b52a44)" />
-</p>
-
+![augment_model_test](https://github.com/user-attachments/assets/d8796496-f5d0-4ae2-8004-c3f890b52a44)
 
 *Augmented Model Testing in testingModel.py*
 
@@ -132,4 +129,5 @@ Test Accuracy: 71.929%
 | weighted avg | 0.83 | 0.72 | 0.71 | 57 |
 
 ![expanded_model_test](https://github.com/user-attachments/assets/59a95087-0045-4848-9c59-f0e51eb25bd5)
+
 *Expanded Model Testing in testingModel.py*
