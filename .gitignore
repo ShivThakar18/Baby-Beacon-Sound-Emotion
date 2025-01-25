@@ -1,6 +1,5 @@
-# Ignore all .wav files
-*.wav
 # Ignore all .zip files
 *.zip
 # Ignore all files in this dir
 /data/dataset/
+/data/testing_data/old/
