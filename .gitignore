@@ -3,7 +3,4 @@
 # Ignore all .zip files
 *.zip
 # Ignore all files in this dir
-/Baby-Beacon-Sound-Emotion/data/dataset/
-
-# Ignore all files in this dir
-/root/data/dataset/
+/data/dataset/
