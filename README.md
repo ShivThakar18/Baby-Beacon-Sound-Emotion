@@ -110,8 +110,9 @@ Test Accuracy: 81.081%
 | weighted avg | 0.83 | 0.81 | 0.80 | 37 |
 
 <p align="center">
-  <img src="[http://some_place.com/image.png](https://github.com/user-attachments/assets/93a62ea3-b792-4cde-9fda-3af0aa16b07f)" />
+  <img src="[augment_model_test](https://github.com/user-attachments/assets/d8796496-f5d0-4ae2-8004-c3f890b52a44)" />
 </p>
+
 
 *Augmented Model Testing in testingModel.py*
 
