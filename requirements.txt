@@ -1,10 +1,6 @@
 matplotlib
 scipy
 numpy
-torch
-torchvision
-opencv-python
 librosa
-pandas
 tensorflow
 keras
