@@ -2,19 +2,20 @@ import librosa
 import numpy as np
 import tensorflow as tf
 import keras
-# Constants
+
+# CONSTANTS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 DIR = "C:\\Users\\shivt\\Code\\BabyBeacon\\Baby-Beacon-Sound-Emotion\\"
 AUDIO_PATH = DIR+"data\\test_data\\"
-MODEL_PATH = DIR + "model\\TRAINED\\"
+MODEL_PATH = DIR + "model\\"
 SAMPLE_RATE = 22050  # Sample rate for librosa
 DURATION = 3         # Duration of the audio file (seconds)
 N_MFCC = 40          # Number of MFCCs to extract
 EMOTIONS = ["belly_pain", "burping", "discomfort", "hungry", "tired"]
 
-# Load the trained model
-model = keras.models.load_model(MODEL_PATH+"baby_emotions_model.keras")
+# LOAD KERAS MODEL --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+model = keras.models.load_model(MODEL_PATH+"augmented_baby_emotions_model.keras") # ADD "augmented_" or "expanded_" to test different versions of the model
 
-# Function to extract features from a single audio file
+# EXRACT AUDIO FEATURES ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def extract_features(file_path):
     # Load the audio file
     y, sr = librosa.load(file_path, sr=SAMPLE_RATE, duration=DURATION)
@@ -25,7 +26,7 @@ def extract_features(file_path):
     # Take the mean of the MFCCs along the time axis to get a fixed-length feature vector
     return np.mean(mfcc.T, axis=0)
 
-# Function to predict emotion from an audio file
+# PREDICT EMOTION ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def predict_emotion(file_path):
     # Extract features from the audio file
     features = extract_features(file_path)
@@ -42,15 +43,13 @@ def predict_emotion(file_path):
     # Return the predicted emotion label
     return EMOTIONS[predicted_class[0]]
 
-
-
-
+# TEST FILE ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def testFile(audio_file,emotions):
     # Predict the emotion
     predicted_emotion = predict_emotion(audio_file)
     print("Actual = "+emotions)
     print(f"The predicted emotion is: {predicted_emotion}")
 
-
+# PASS AUDIO FILES --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 for emote in EMOTIONS:
     testFile(AUDIO_PATH+emote+".wav",emote)

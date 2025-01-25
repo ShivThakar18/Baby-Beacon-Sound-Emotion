@@ -51,24 +51,24 @@ model = models.Sequential([
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 # TRAIN THE MODEL ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-history = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=760, batch_size=16)
+history = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=760, batch_size=16)  # epochs and batch_size can affect model loss and accuracy rates
+                                                                                                    # for augmented model use: epochs = 375 , batch_size = 16
+                                                                                                    # for expanded model use: epochs = 760, batch_size = 16 (larger dataset)
 
 # SAVE THE MODEL ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-model.save(MODEL_PATH+"\\expanded\\baby_emotions_model.keras")
-model.save(MODEL_PATH+"\\expanded\\baby_emotions_model.h5")
-model.save_weights(MODEL_PATH+"\\expanded\\baby_emotions.weights.h5")
+model.save(MODEL_PATH+"\\expanded\\baby_emotions_model.keras")          # save model as a .keras for Keras v3 
+model.save(MODEL_PATH+"\\expanded\\baby_emotions_model.h5")             # legacy file format (in case of downgrading)
+model.save_weights(MODEL_PATH+"\\expanded\\baby_emotions.weights.h5")   # save legacy weights
 
-# EVALUATE MODEL BASED ON TEST DATASET
+# EVALUATE MODEL BASED ON TEST DATASET ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 loss, accuracy = model.evaluate(X_test,y_test)
-print(f"Test: Loss: {loss}")
-print(f"Test Accuracy: {accuracy}")
+print(f"Test Loss: {loss}")             # display test loss 
+print(f"Test Accuracy: {accuracy}")     # display test accuracy
 
-# Make predictions
 y_pred = model.predict(X_test)
 y_pred_classes = np.argmax(y_pred, axis=1)
 y_test_classes = np.argmax(y_test, axis=1)
 
-# Generate a classification report
-print(classification_report(y_test_classes, y_pred_classes, target_names=EMOTIONS))
+print(classification_report(y_test_classes, y_pred_classes, target_names=EMOTIONS)) # generate classification report 
 
 
