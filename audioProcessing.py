@@ -49,7 +49,7 @@ def waveform_spectrogram_mfccs(audio_file, file,export_raw=True):
         mfccs_padded = mfccs_normalized[:, :max_len]
 
     
-    """ # Plot waveform
+    # Plot waveform
     plt.figure(figsize=(12, 6))
     plt.subplot(3, 1, 1)
     plt.title("Waveform")
@@ -74,7 +74,7 @@ def waveform_spectrogram_mfccs(audio_file, file,export_raw=True):
     plt.title("MFCC")
 
     plt.tight_layout()
-    plt.show() """
+    plt.show()
     
     return y, sr, mfccs_padded # Return raw data and sample rate
 
@@ -107,10 +107,10 @@ def modelPredictions(model_input):
    model.load_weights(H5_MODEL+".h5")
 
 def main():
-    raw_crying, mfccs_crying = audioPreprocessing(CRYING_FILE)
-   #raw_crying, mfccs_crying = audioPreprocessing(LAUGHING_FILE)
+    raw_crying, mfccs_crying = audioPreprocessing("C:\\Users\\shivt\\Code\\BabyBeacon\\Baby-Beacon-Sound-Emotion\\data\\testing_data\\belly_pain")
+    #raw_crying, mfccs_crying = audioPreprocessing(LAUGHING_FILE)
 
-    reshapeModelInput(mfccs_crying,CRYING_FILE)
+    #reshapeModelInput(mfccs_crying,CRYING_FILE)
 
 
 
