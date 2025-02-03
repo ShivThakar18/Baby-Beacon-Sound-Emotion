@@ -7,12 +7,12 @@
 
 /*
  * To compile and run: 
- *      > g++ src/BabySounds.cpp -o BabySounds `pkg-config --cflags --libs opencv4`
+ *      > g++ src/BabySounds.cpp -o BabySounds `pkg-config --cflags --libs opencv4` -lportaudio -lsndfile
  *      > ./BabySounds
  */ 
 
 int main(){
     std::cout << "Hello World!"<< std::endl;
-    std::cout << "OpenCV Version: "<< CV_VERSION << std::endl; // check if OpenCV has imported correctly
+    //std::cout << "OpenCV Version: "<< CV_VERSION << std::endl; // check if OpenCV has imported correctly
     
 }

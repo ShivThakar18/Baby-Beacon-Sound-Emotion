@@ -18,8 +18,9 @@ sudo apt install -y libopencv-dev
 pkg-config --modversion opencv4
 
 echo "Installing PortAudio..."
-sudo apt install -y libportaudio2 libportaudio-dev libsandfile1-dev
+sudo apt install -y libportaudio2 libportaudio-dev
 sudo apt install -y portaudio19-dev
+sudo apt install -y libsndfile1-dev
 pkg-config --modversion portaudio-2.0
 pkg-config --modversion sndfile
 
