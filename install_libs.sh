@@ -4,8 +4,8 @@ echo "Updating package list..."
 sudo apt update
 
 echo "Installing git dependancies..."
-sudo apt install gh
-sudo apt install git
+sudo apt install -y gh
+sudo apt install -y git
 
 echo "Installing C++ compiler and build tools..."
 sudo apt install -y cmake
