@@ -8,7 +8,7 @@ LIBS = -lportaudio -lsndfile
 # Source and Output
 SRC_DIR = src
 SRC_FILES = $(SRC_DIR)/BabySounds.cpp
-OUTPUT = BabySounds
+OUTPUT = $(SRC_DIR)/BabySounds
 
 # Default Target
 all: $(OUTPUT)
