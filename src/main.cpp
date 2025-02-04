@@ -6,5 +6,5 @@
 
 int main(){
     std::cout << "Hello World!"<< std::endl;    
-    record();  // call record function 
+    record(); 
 }
