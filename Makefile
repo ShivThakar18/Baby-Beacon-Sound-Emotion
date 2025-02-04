@@ -7,16 +7,37 @@ LIBS = -lportaudio -lsndfile
 
 # Source and Output
 SRC_DIR = src
-SRC_FILES = $(SRC_DIR)/BabySounds.cpp
-OUTPUT = $(SRC_DIR)/BabySounds
+BUILD_DIR = build
+INCLUDE_DIR = include
+
+#Source Files 
+SRC_FILES = $(SRC_DIR)/main.cpp $(SRC_DIR)/Record_BabySounds.cpp
+
+#Object Files
+OBJ_FILES = $(BUILD_DIR)/main.o $(BUILD_DIR)/Record_BabySounds.o
+
+# OUTPUT exe
+OUTPUT = BabySounds
 
 # Default Target
 all: $(OUTPUT)
 
-# Compilation Rules
+# Compilation rule for exe
+$(OUTPUT):$(OBJ_FILES)
+	$(CXX) $(OBJ_FILES) -o $(OUTPUT) $(PKG_CONFIG) $(LIBS)
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp | $(BUILD_DIR)
+		$(CXX) -I$(INCLUDE_DIR) -c $< -o $@ $(PKG_CONFIG) $(LIBS)
+
+
+# Compilation rule to compile .cpp -> .o
 $(OUTPUT): $(SRC_DIR)
-	$(CXX) $(CXXFlags) $(SRC_FILES) -o $(OUTPUT) $(PKG_CONFIG) $(LIBS)
+	$(CXX) $(SRC_FILES) -o $(OUTPUT) $(PKG_CONFIG) $(LIBS)
+
+# Ensure the build directory exists
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
 
 # Clean Rule
 clean:
-	rm -f $(OUTPUT)
+	rm -rf $(BUILD_DIR) $(OUTPUT)
