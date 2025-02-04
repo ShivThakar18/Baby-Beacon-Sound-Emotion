@@ -131,3 +131,33 @@ Test Accuracy: 71.929%
 ![expanded_model_test](https://github.com/user-attachments/assets/59a95087-0045-4848-9c59-f0e51eb25bd5)
 
 *Expanded Model Testing in testingModel.py*
+
+## C++ Audio Processing / Recognition
+
+## Compile and Run
+### Dependencies 
+Use sudo commands to install the following dependencies or run the bash script
+
+Required Dependencies:
+```sh
+gh / git 
+cmake
+make
+gcc / g++
+libopencv-dev
+libportaudio2 libportaudio-dev
+portaudio19-dev
+libsndfile1-dev
+```
+
+To run the bash script: 
+```sh
+$ chmod +x install_libs.sh
+$ ./install_libs.sh
+```
+### Running the Project
+To run the C++ project, run the Makefile
+```sh
+$ make
+```
+
