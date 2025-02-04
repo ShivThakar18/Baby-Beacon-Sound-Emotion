@@ -20,7 +20,7 @@ int record(){
     AudioData data;
     PaStream *stream; 
 
-    Pa_OpenDefaultStream(&stream, NUM_CHANNELS, 0, paInt16, SAMPLE_RATE, FRAMES_PER_BUFFER, recordCallback, &data);
+    Pa_OpenDefaultStream(&stream, NUM_CHANNELS, 0, paInt16, REC_SAMPLE_RATE, FRAMES_PER_BUFFER, recordCallback, &data);
 
     std::cout << "Start Recording....\n"; 
     Pa_StartStream(stream);             // start recording 
@@ -32,7 +32,7 @@ int record(){
 
     // Save audio as a .wav file using libsndfile library 
     SF_INFO sfinfo; 
-    sfinfo.samplerate = SAMPLE_RATE; 
+    sfinfo.samplerate = REC_SAMPLE_RATE; 
     sfinfo.channels = NUM_CHANNELS;
     sfinfo.format = SF_FORMAT_WAV | SF_FORMAT_PCM_16; 
 

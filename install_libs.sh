@@ -21,6 +21,7 @@ echo "Installing PortAudio..."
 sudo apt install -y libportaudio2 libportaudio-dev
 sudo apt install -y portaudio19-dev
 sudo apt install -y libsndfile1-dev
+sudo apt install -y libaubio-dev
 pkg-config --modversion portaudio-2.0
 pkg-config --modversion sndfile
 

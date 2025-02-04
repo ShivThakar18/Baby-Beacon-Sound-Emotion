@@ -148,6 +148,7 @@ libopencv-dev
 libportaudio2 libportaudio-dev
 portaudio19-dev
 libsndfile1-dev
+libaubio-dev
 ```
 
 To run the bash script: 

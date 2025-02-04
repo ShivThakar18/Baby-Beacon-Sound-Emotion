@@ -5,7 +5,7 @@
 #include <sndfile.h>
 #include <vector>
 
-#define SAMPLE_RATE 44100
+#define REC_SAMPLE_RATE 44100
 #define FRAMES_PER_BUFFER 1024
 #define NUM_CHANNELS 1
 #define RECORD_SECONDS 12
