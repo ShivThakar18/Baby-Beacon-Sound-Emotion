@@ -3,7 +3,7 @@ CXX = g++
 
 # Include and Library Flags
 PKG_CONFIG = `pkg-config --cflags --libs opencv4`
-LIBS = -lportaudio -lsndfile
+LIBS = -lportaudio -lsndfile -laubio
 
 # Source and Output
 SRC_DIR = src
