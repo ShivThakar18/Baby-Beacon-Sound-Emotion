@@ -4,6 +4,7 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 from tensorflow.keras import layers, models
 import tf2onnx
+from tensorflow.keras.layers import InputLayer
 
 PATH = "C:\\Users\\shivt\\Documents\\GitHub\\Baby-Beacon-Sound-Emotion\\model\\"
 # Load the frozen model
@@ -63,36 +64,28 @@ def convertSavedModel_to_Frozen():
     frozen_model = (PATH+"frozen_model.pb")
     print("Frozen Model loaded successfully")
 
-# Load the graph
-def load_frozen_model(model_path):
-    with tf.io.gfile.GFile(model_path, "rb") as f:
-        graph_def = tf.compat.v1.GraphDef()
-        graph_def.ParseFromString(f.read())
+# Load the model
+model = tf.keras.models.load_model(PATH+"model.h5")
 
-    with tf.compat.v1.Graph().as_default() as graph:
-        tf.import_graph_def(graph_def, name="")
-    return graph
+# Replace 'batch_shape' with 'input_shape' in the config
+config = {'batch_shape': [None, 40], 'dtype': 'float32', 'sparse': False, 'name': 'input_layer'}
+config['input_shape'] = config.pop('batch_shape')[1:]
 
-#convertH5_to_ONNX(model_path)
-# Load the .h5 model
-model = load_model(model_path, compile=False)
+# Reconstruct the InputLayer
+input_layer = InputLayer.from_config(config)
+print(input_layer)
 
-# Manually rebuild the model
-inputs = tf.keras.Input(shape=(40,))  # Adjust shape as needed
-outputs = model(inputs)
-new_model = tf.keras.Model(inputs, outputs)
 
-# Save the new model
-new_model.save(PATH+"rebuilt_model.h5")
+# Get the ConcreteFunction from the Keras model
+full_model = tf.function(lambda x: model(x))
+full_model = full_model.get_concrete_function(tf.TensorSpec(model.inputs[0].shape, model.inputs[0].dtype))
 
-# Convert to ONNX
-import tf2onnx
-onnx_model_path = PATH+"model.onnx"
-spec = (tf.TensorSpec(new_model.input_shape, tf.float32),)
-onnx_model, _ = tf2onnx.convert.from_keras(new_model, input_signature=spec)
+# Convert variables to constants
+frozen_func = convert_variables_to_constants_v2(full_model)
+frozen_func.graph.as_graph_def()
 
-# Save the ONNX model
-with open(onnx_model_path, "wb") as f:
-    f.write(onnx_model.SerializeToString())
-
-print(f"ONNX model saved as {onnx_model_path}")
+# Export the frozen graph
+tf.io.write_graph(graph_or_graph_def=frozen_func.graph,
+                  logdir="./frozen_models",
+                  name=PATH+"frozen_graph.pb",
+                  as_text=False)
