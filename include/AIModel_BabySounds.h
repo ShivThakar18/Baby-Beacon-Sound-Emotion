@@ -6,7 +6,7 @@
 #include <string>
 #include "../include/ADProcess_BabySounds.h"
 
-#define MODEL_FILENAME "../model/model_saved/saved_model.pb"
+#define MODEL_FILENAME "../model/frozen_model.pb"
 
 using namespace cv; 
 using namespace cv::dnn;

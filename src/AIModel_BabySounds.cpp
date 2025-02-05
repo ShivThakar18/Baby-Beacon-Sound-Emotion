@@ -3,7 +3,7 @@
 
 int load_model(){
     
-    cv::dnn::Net net = cv::dnn::readNet(MODEL_FILENAME);
+    cv::dnn::Net net = cv::dnn::readNetFromTensorflow(MODEL_FILENAME);
 
     if(net.empty()){
         std::cerr << "Error: Could not load model " << MODEL_FILENAME << "\n";
