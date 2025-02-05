@@ -11,10 +11,10 @@ BUILD_DIR = build
 INCLUDE_DIR = include
 
 #Source Files 
-SRC_FILES = $(SRC_DIR)/main.cpp $(SRC_DIR)/Record_BabySounds.cpp $(SRC_DIR)/ADProcess_BabySounds.cpp
+SRC_FILES = $(SRC_DIR)/main.cpp $(SRC_DIR)/Record_BabySounds.cpp $(SRC_DIR)/ADProcess_BabySounds.cpp $(SRC_DIR)/AIModel_BabySounds.cpp
 
 #Object Files
-OBJ_FILES = $(BUILD_DIR)/main.o $(BUILD_DIR)/Record_BabySounds.o $(BUILD_DIR)/ADProcess_BabySounds.o
+OBJ_FILES = $(BUILD_DIR)/main.o $(BUILD_DIR)/Record_BabySounds.o $(BUILD_DIR)/ADProcess_BabySounds.o $(BUILD_DIR)/AIModel_BabySounds.o
 
 # OUTPUT exe
 OUTPUT = BabySounds
