@@ -83,4 +83,4 @@ def test_txt(audio_file,emotions):
     testFile(AUDIO_PATH+emote+".wav",emote) """
 
 test_txt("C:\\Users\\shivt\\Documents\\GitHub\\Baby-Beacon-Sound-Emotion\\output\\mfcc_features.txt",EMOTIONS)
-testFile("C:\\Users\\shivt\\Documents\\GitHub\\Baby-Beacon-Sound-Emotion\\data\\testing_data\\belly_pain.wav",EMOTIONS)
+testFile("C:\\Users\\shivt\\Documents\\GitHub\\Baby-Beacon-Sound-Emotion\\data\\testing_data\\burping.wav",EMOTIONS)
