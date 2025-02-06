@@ -57,3 +57,22 @@ std::vector<float> extract_mfcc(const char* filename){
     return mfcc_features;  // return extracted features
 
 }
+
+int export_mfccFile(std::vector<float> mfcc_features, const char* txtFile){
+
+    std::ofstream FILE(txtFile);
+
+    if(!FILE){
+        std::cerr << "Error: Could not open the file for writing\n";
+        return 0; 
+    }
+
+    for(const float& value : mfcc_features){
+        FILE << value << "\n";
+    }
+
+    FILE.close();
+    std::cout << "MFCCs Features written to " << txtFile << "\n";
+
+    return 0; 
+}

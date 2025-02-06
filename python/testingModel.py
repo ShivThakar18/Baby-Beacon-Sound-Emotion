@@ -23,8 +23,13 @@ def extract_features(file_path):
     # Extract MFCC features
     mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=N_MFCC)
     
+
+    features = np.mean(mfcc.T, axis=0)
+
+    print(features)
+
     # Take the mean of the MFCCs along the time axis to get a fixed-length feature vector
-    return np.mean(mfcc.T, axis=0)
+    return features
 
 # PREDICT EMOTION ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def predict_emotion(file_path):

@@ -3,10 +3,10 @@
 #include <vector>
 #include "../include/Record_BabySounds.h"
 #include "../include/ADProcess_BabySounds.h"
-#include "../include/AIModel_BabySounds.h"
 
 int main(){
-    std::cout << "Hello World!"<< std::endl;   
-    load_model(); 
     //record(); 
+    std::vector<float> mfcc = extract_mfcc(ADP_FILENAME);
+    std::cout << "MFCC Features extracted\n";
+    export_mfccFile(mfcc, MFCC_FILE);
 }

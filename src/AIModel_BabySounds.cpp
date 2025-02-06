@@ -1,5 +1,7 @@
+// we are pivoting to use python to process the data into the AI Model
+// therefore, this cpp will not be used 
+
 #include "../include/AIModel_BabySounds.h"
-#define MODEL_FILENAME "/home/ghosttt/Baby-Beacon-Sound-Emotion/model/frozen_model.pb"
 
 int load_model(){
     
