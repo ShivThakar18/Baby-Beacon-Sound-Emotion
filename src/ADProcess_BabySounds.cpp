@@ -121,16 +121,22 @@ std::vector<float> extract_mfcc(const char* filename){
 
 int pyTest(){
     
-    setenv("PYTHONHOME","/home/ghosttt/venv",1);
-    setenv("PYTHONPATH","/home/ghosttt/venv/lib/python3.12/site-packages:/home/ghosttt/Baby-Beacon-Sound-Emotion/python",1);
-    //Py_SetProgramName(L"/home/ghosttt/venv/bin/python3.12");
+    //setenv("PYTHONHOME","/home/ghosttt/venv",1);
+    //setenv("PYTHONPATH","/home/ghosttt/venv/lib/python3.12/site-packages:/home/ghosttt/Baby-Beacon-Sound-Emotion/python",1);
+    
+    //Py_SetPythonHome(L"/home/ghosttt/venv");
     
     Py_Initialize(); // Initialize Python interpreter
 
+    if(!Py_IsInitialized()){
+        std::cerr << "Failed to Initialize Python Interpreter" << std::endl;
+        return -1;
+    }
+
     // Run simple Python command
-    //PyRun_SimpleString("import sys");
-    //PyRun_SimpleString("sys.path.append('/home/ghosttt/venv/lib/python3.12/site-packages')");
-    //PyRun_SimpleString("sys.path.append('/home/ghosttt/Baby-Beacon-Sound-Emotion/python')");
+    PyRun_SimpleString("import sys");
+    PyRun_SimpleString("sys.path.append('/home/ghosttt/venv/lib/python3.12/site-packages')");
+    PyRun_SimpleString("sys.path.append('/home/ghosttt/Baby-Beacon-Sound-Emotion/python')");
 
     // Import and call a function from a Python script
     PyObject *pName, *pModule, *pFunc, *pValue, *pArgs;
