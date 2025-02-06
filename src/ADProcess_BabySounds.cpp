@@ -119,13 +119,8 @@ std::vector<float> extract_mfcc(const char* filename){
     return mfcc_features;
 }
 
-int pyTest(){
-    
-    //setenv("PYTHONHOME","/home/ghosttt/venv",1);
-    //setenv("PYTHONPATH","/home/ghosttt/venv/lib/python3.12/site-packages:/home/ghosttt/Baby-Beacon-Sound-Emotion/python",1);
-    
-    //Py_SetPythonHome(L"/home/ghosttt/venv");
-    
+int pyPredict_Emotions(){
+        
     Py_Initialize(); // Initialize Python interpreter
 
     if(!Py_IsInitialized()){
@@ -135,13 +130,13 @@ int pyTest(){
 
     // Run simple Python command
     PyRun_SimpleString("import sys");
-    PyRun_SimpleString("sys.path.append('/home/ghosttt/venv/lib/python3.12/site-packages')");
-    PyRun_SimpleString("sys.path.append('/home/ghosttt/Baby-Beacon-Sound-Emotion/python')");
+    PyRun_SimpleString(("sys.path.append('"+SITE_PACKAGES+"')").c_str());
+    PyRun_SimpleString(("sys.path.append('"+PYTHON_SCRIPT+"')").c_str());
 
     // Import and call a function from a Python script
     PyObject *pName, *pModule, *pFunc, *pValue, *pArgs;
     
-    pName = PyUnicode_DecodeFSDefault("testingModel");  // Name of script (without .py)
+    pName = PyUnicode_DecodeFSDefault(PY_FILE);  // Name of script (without .py)
     pModule = PyImport_Import(pName);  // Import script.py
     Py_XDECREF(pName);
 
