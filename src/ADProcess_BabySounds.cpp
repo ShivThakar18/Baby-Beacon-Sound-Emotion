@@ -120,8 +120,36 @@ std::vector<float> extract_mfcc(const char* filename){
 }
 
 int pyTest(){
-    Py_Initialize();
-    PyRun_SimpleString("print('hello from python!')")
+    Py_Initialize(); // Initialize Python interpreter
+
+    // Run simple Python command
+    PyRun_SimpleString("print('Hello from Python!')");
+
+    // Import and call a function from a Python script
+    PyObject *pName, *pModule, *pFunc, *pValue;
+    
+    pName = PyUnicode_DecodeFSDefault("script");  // Name of script (without .py)
+    pModule = PyImport_Import(pName);  // Import script.py
+    Py_XDECREF(pName);
+
+    if (pModule) {
+        pFunc = PyObject_GetAttrString(pModule, "hello"); // Function name
+
+        if (pFunc && PyCallable_Check(pFunc)) {
+            pValue = PyObject_CallObject(pFunc, NULL);  // Call function
+            Py_XDECREF(pValue);
+        } else {
+            PyErr_Print();
+        }
+
+        Py_XDECREF(pFunc);
+        Py_XDECREF(pModule);
+    } else {
+        PyErr_Print();
+    }
+
+    Py_Finalize(); // Shutdown Python interpreter
+    return 0;
 }
 
 int export_mfccFile(std::vector<float> mfcc_features, const char* txtFile){
