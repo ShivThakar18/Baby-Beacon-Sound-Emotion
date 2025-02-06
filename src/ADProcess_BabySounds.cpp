@@ -120,24 +120,37 @@ std::vector<float> extract_mfcc(const char* filename){
 }
 
 int pyTest(){
+    
+    //Py_SetPythonHome(L"/home/ghosttt/venv");
+    
     Py_Initialize(); // Initialize Python interpreter
 
     // Run simple Python command
-    PyRun_SimpleString("print('Hello from Python!')");
+    PyRun_SimpleString("import sys");
+    PyRun_SimpleString("sys.path.append('/home/ghosttt/venv/lib/python3.12/site-packages')");
+    PyRun_SimpleString("sys.path.append('/home/ghosttt/Baby-Beacon-Sound-Emotion/python')");
 
     // Import and call a function from a Python script
-    PyObject *pName, *pModule, *pFunc, *pValue;
+    PyObject *pName, *pModule, *pFunc, *pValue, *pArgs;
     
-    pName = PyUnicode_DecodeFSDefault("script");  // Name of script (without .py)
+    pName = PyUnicode_DecodeFSDefault("testingModel");  // Name of script (without .py)
     pModule = PyImport_Import(pName);  // Import script.py
     Py_XDECREF(pName);
 
     if (pModule) {
-        pFunc = PyObject_GetAttrString(pModule, "hello"); // Function name
+        pFunc = PyObject_GetAttrString(pModule, "predict_emotion"); // Function name
 
         if (pFunc && PyCallable_Check(pFunc)) {
-            pValue = PyObject_CallObject(pFunc, NULL);  // Call function
-            Py_XDECREF(pValue);
+
+            pArgs = PyTuple_Pack(1,PyUnicode_FromString(ADP_FILENAME));
+
+            pValue = PyObject_CallObject(pFunc, pArgs);  // Call function
+            Py_XDECREF(pArgs);
+
+            if(pValue){
+                std::cout << "Python Returned: " << PyUnicode_AsUTF8(pValue) << std::endl;
+            }
+
         } else {
             PyErr_Print();
         }

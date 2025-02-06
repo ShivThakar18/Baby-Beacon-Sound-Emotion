@@ -9,4 +9,5 @@ int main(){
     std::vector<float> mfcc = extract_mfcc(ADP_FILENAME);
     std::cout << "MFCC Features extracted\n";
     export_mfccFile(mfcc, MFCC_FILE);
+    pyTest();
 }
