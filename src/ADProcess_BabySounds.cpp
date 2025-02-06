@@ -130,8 +130,8 @@ int pyPredict_Emotions(){
 
     // Run simple Python command
     PyRun_SimpleString("import sys");
-    PyRun_SimpleString(("sys.path.append('"+SITE_PACKAGES+"')").c_str());
-    PyRun_SimpleString(("sys.path.append('"+PYTHON_SCRIPT+"')").c_str());
+    PyRun_SimpleString(SITE_PACKAGES);
+    PyRun_SimpleString(PYTHON_SCRIPT);
 
     // Import and call a function from a Python script
     PyObject *pName, *pModule, *pFunc, *pValue, *pArgs;
