@@ -1,4 +1,5 @@
 #include "../include/ADProcess_BabySounds.h"
+#include <python3.12/Python.h>
 
 /* std::vector<float> extract_mfcc(const char* filename){
 
@@ -116,6 +117,11 @@ std::vector<float> extract_mfcc(const char* filename){
     del_fvec(input);
 
     return mfcc_features;
+}
+
+int pyTest(){
+    Py_Initialize();
+    PyRun_SimpleString("print('hello from python!')")
 }
 
 int export_mfccFile(std::vector<float> mfcc_features, const char* txtFile){
