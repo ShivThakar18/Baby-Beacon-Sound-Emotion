@@ -73,7 +73,7 @@ std::vector<float> extract_mfcc(const char* filename){
     fvec_t* input = new_fvec(FRAME_SIZE);
     cvec_t* fft_output = new_cvec(FRAME_SIZE);
     aubio_fft_t* fft = new_aubio_fft(FRAME_SIZE);
-    aubio_mfcc_t* mfcc = new_aubio_mfcc(FRAME_SIZE, N_FILTERS, N_MFCC, SAMPLE_RATE);
+    aubio_mfcc_t* mfcc = new_aubio_mfcc(FRAME_SIZE, N_FILTERS, N_MFCC, MFCC_SAMPLE_RATE);
 
     std::vector<float> mfcc_sum(N_MFCC, 0.0);
     int frame_count = 0;
