@@ -8,7 +8,7 @@ DIR = "C:\\Users\\shivt\\Documents\\Baby-Beacon-Sound-Emotion\\"
 AUDIO_PATH = DIR+"data\\test_data\\"
 MODEL_PATH = DIR + "model\\"
 SAMPLE_RATE = 22050  # Sample rate for librosa
-DURATION = 3         # Duration of the audio file (seconds)
+DURATION = 6       # Duration of the audio file (seconds)
 N_MFCC = 40          # Number of MFCCs to extract
 EMOTIONS = ["belly_pain", "burping", "discomfort", "hungry", "tired"]
 
@@ -20,9 +20,13 @@ def extract_features(file_path):
     # Load the audio file
     y, sr = librosa.load(file_path, sr=SAMPLE_RATE, duration=DURATION)
     
+    #y_preemphasized = np.append(y[0], y[1:] - 0.97 * y[:-1])
+
+
     # Extract MFCC features
-    mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=N_MFCC)
-    
+    mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=N_MFCC,n_fft=2048,hop_length=512)
+    #mfcc = librosa.feature.mfcc(y=y_preemphasized, sr=sr, n_mfcc=N_MFCC, n_fft=2048, hop_length=512)
+
 
     features = np.array(np.mean(mfcc.T, axis=0))
 
