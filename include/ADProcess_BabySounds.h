@@ -5,6 +5,7 @@
 #include <fstream>
 #include <python3.12/Python.h>
 #include <filesystem>
+#include <librosa/librosa.h>
 
 #define MFCC_SAMPLE_RATE 22050
 #define N_FILTERS 128
@@ -20,3 +21,5 @@
 std::vector<float> extract_mfcc(const char* filename);
 int export_mfccFile(std::vector<float> mfcc_features, const char* txtFile);
 int pyPredict_Emotions();
+
+int testfunction();

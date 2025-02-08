@@ -186,3 +186,23 @@ int export_mfccFile(std::vector<float> mfcc_features, const char* txtFile){
 
     return 0; 
 }
+
+int testFunction(){
+
+    int sr = 16000;
+    int n_fft = 400;
+    int n_hop = 160;
+    std::string window = "hann";
+    bool center = false;
+    std::string pad_mode = "reflect";
+    float power = 2.f;
+    int n_mel = 40; 
+    int fmin = 80;
+    int fmax = 7600;
+    int n_mfcc = 40; // changed from 20
+    bool norm = true; 
+    int type = 2; 
+
+    std::vector<std::vector<float>> mfcc = librosa::Feature::mfcc(x,sr,n_fft,n_hop,window, center, pad_mode,power,n_mel,fmin,fmax,n_mfcc,norm,type);
+
+}
