@@ -5,17 +5,20 @@ import keras
 import sys
 import os
 # CONSTANTS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#DIR = "C:\\Users\\shivt\\Documents\\Baby-Beacon-Sound-Emotion\\"
-DIR = "/home/ghosttt/Baby-Beacon-Sound-Emotion/"
+DIR = "C:\\Users\\shivt\\Documents\\GitHub\\Baby-Beacon-Sound-Emotion\\"
+AUDIO_PATH = DIR+"data\\test_data"
+MODEL_PATH = DIR + "model\\"
+""" DIR = "/home/ghosttt/Baby-Beacon-Sound-Emotion/"
 AUDIO_PATH = DIR+"/data/test_data"
-MODEL_PATH = DIR + "/model/"
+MODEL_PATH = DIR + "/model/" """
+
 SAMPLE_RATE = 22050  # Sample rate for librosa
 DURATION = 6       # Duration of the audio file (seconds)
 N_MFCC = 40          # Number of MFCCs to extract
 EMOTIONS = ["belly_pain", "burping", "discomfort", "hungry", "tired"]
 
 # LOAD KERAS MODEL --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-model = keras.models.load_model(MODEL_PATH+"/augmented_baby_emotions_model.keras") # ADD "augmented_" or "expanded_" to test different versions of the model
+model = keras.models.load_model(MODEL_PATH+"augmented_baby_emotions_model.keras") # ADD "augmented_" or "expanded_" to test different versions of the model
 
 # EXRACT AUDIO FEATURES ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def extract_features(file_path):
