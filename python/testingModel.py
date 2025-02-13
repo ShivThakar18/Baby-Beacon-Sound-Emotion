@@ -4,12 +4,14 @@ import tensorflow as tf
 import keras
 import sys
 import os
+import filecmp
 # CONSTANTS ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-DIR = "C:\\Users\\shivt\\Documents\\GitHub\\Baby-Beacon-Sound-Emotion\\"
-AUDIO_PATH = DIR+"data\\test_data"
+#DIR = "C:\\Users\\shivt\\Documents\\GitHub\\Baby-Beacon-Sound-Emotion\\"
+DIR = "C:\\Users\\shivt\\Code\\BabyBeacon\\Baby-Beacon-Sound-Emotion\\"
+AUDIO_PATH = DIR+"data\\testing_data"
 MODEL_PATH = DIR + "model\\"
 """ DIR = "/home/ghosttt/Baby-Beacon-Sound-Emotion/"
-AUDIO_PATH = DIR+"/data/test_data"
+AUDIO_PATH = DIR+"/data/testing_data"
 MODEL_PATH = DIR + "/model/" """
 
 SAMPLE_RATE = 22050  # Sample rate for librosa
@@ -37,12 +39,26 @@ def extract_features(file_path):
     # Extract MFCC features
     print("Extract Audio Features...\n")
     mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=N_MFCC,n_fft=2048,hop_length=512)
-    #mfcc = librosa.feature.mfcc(y=y_preemphasized, sr=sr, n_mfcc=N_MFCC, n_fft=2048, hop_length=512)
+    mfcc_og = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=N_MFCC)
+
+    f1 = open(DIR+"output\\new_data.txt","w")
+    f2 = open(DIR+"output\\old_data.txt","w")
 
 
     features = np.array(np.mean(mfcc.T, axis=0))
+    features2 = np.array(np.mean(mfcc_og.T, axis=0))
     print("Features Extracted....\n")
-    print(features)
+
+    for f in features:
+        f1.write(str(f)+"\n")
+    for f in features2:
+        f2.write(str(f)+"\n")
+
+    f1.close()
+    f2.close()
+
+    same_file = filecmp.cmp(DIR+"output\\new_data.txt",DIR+"output\\old_data.txt")
+    print(same_file)
 
     # Take the mean of the MFCCs along the time axis to get a fixed-length feature vector
     return features
@@ -98,9 +114,56 @@ def test_txt(audio_file,emotions):
     print("Actual = Belly Pain")
     print(f"The predicted emotion is: {predicted_emotion}")
 
+def matchCpp(file):
+    # Constants (Matching Aubio)
+    SAMPLE_RATE = 22050  # Ensure this matches your C++ `MFCC_SAMPLE_RATE`
+    N_FFT = 2048         # FFT size (matches `FRAME_SIZE` in C++)
+    HOP_LENGTH = 512     # Hop size (matches `HOP_SIZE` in C++)
+    N_MFCC = 40          # Number of MFCCs
+    N_FILTERS = 42       # Set to N_MFCC + 2 to match Aubio
+    FMIN = 0             # Min frequency for Mel filter bank
+    FMAX = SAMPLE_RATE // 2  # Max frequency (Nyquist frequency)
+    WINDOW = 'hann'      # Ensure same windowing function
+    HTK = True           # Aubio might use HTK-style Mel scaling
+
+    # Load the audio file
+    y, sr = librosa.load(file, sr=SAMPLE_RATE)
+
+    # Apply pre-emphasis (to match Aubio)
+    y_preemphasized = np.append(y[0], y[1:] - 0.97 * y[:-1])
+
+    # Compute MFCCs with matching parameters
+    mfcc = librosa.feature.mfcc(
+        y=y_preemphasized,
+        sr=SAMPLE_RATE,
+        n_mfcc=N_MFCC,
+        n_fft=N_FFT,
+        hop_length=HOP_LENGTH,
+        htk=HTK,  # Set to True to match Aubio
+        fmin=FMIN,
+        fmax=FMAX,
+        window=WINDOW
+    )
+
+    # Compute the mean across time frames (Aubio averages MFCCs)
+    mfcc_mean = np.mean(mfcc, axis=1)
+
+    # Print MFCC features
+    print(mfcc_mean)
+    f1 = open(DIR+"output\\testCpp.txt","w")
+
+
+    features = np.array(mfcc_mean)
+    print("Features Extracted....\n")
+
+    for f in features:
+        f1.write(str(f)+"\n")
+
 # PASS AUDIO FILES --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 """ for emote in EMOTIONS:
     testFile(AUDIO_PATH+emote+".wav",emote) """
 
 #test_txt(DIR+"/output/mfcc_features.txt",EMOTIONS)
-testFile(DIR+"/data/testing_data/burping.wav",EMOTIONS)
+#testFile(DIR+"/data/testing_data/burping.wav",EMOTIONS)
+#extract_features(AUDIO_PATH+"\\belly_pain.wav")
+matchCpp(AUDIO_PATH+"\\belly_pain.wav")
