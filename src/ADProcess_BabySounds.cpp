@@ -59,7 +59,7 @@
 
 } */
 
-std::vector<float> extract_mfcc2(const char* filename){
+std::vector<float> extract_mfcc(const char* filename){
     std::vector<float> mfcc_features(N_MFCC, 0.0);
 
     // Open WAV file
@@ -186,80 +186,3 @@ int export_mfccFile(std::vector<float> mfcc_features, const char* txtFile){
 
     return 0; 
 }
-
-std::vector<float> extract_mfcc(const char* filename) {
-    std::vector<float> mfcc_features(N_MFCC, 0.0);
-
-    // Open the WAV file
-    SF_INFO sfinfo;
-    SNDFILE* file = sf_open(filename, SFM_READ, &sfinfo);
-    if (!file) {
-        std::cerr << "Error opening audio file!\n";
-        return mfcc_features;
-    }
-
-    // Aubio buffers
-    fvec_t* input = new_fvec(FRAME_SIZE);
-    cvec_t* fft_output = new_cvec(FRAME_SIZE);
-    aubio_fft_t* fft = new_aubio_fft(FRAME_SIZE);
-    aubio_mfcc_t* mfcc = new_aubio_mfcc(FRAME_SIZE, N_FILTERS, N_MFCC, SAMPLE_RATE);
-
-    std::vector<float> mfcc_sum(N_MFCC, 0.0);
-    int frame_count = 0;
-
-    // Read and process frames
-    while (sf_read_float(file, input->data, FRAME_SIZE) > 0) {
-        // Apply pre-emphasis filter (to match Librosa)
-        for (int i = FRAME_SIZE - 1; i > 0; i--) {
-            input->data[i] -= 0.97 * input->data[i - 1];
-        }
-
-        // Apply Hann window (to match Librosa)
-        for (int i = 0; i < FRAME_SIZE; i++) {
-            input->data[i] *= 0.5 * (1 - cos(2 * M_PI * i / (FRAME_SIZE - 1)));
-        }
-
-        // Compute FFT
-        aubio_fft_do(fft, input, fft_output);
-
-        // Compute MFCCs
-        fvec_t* mfcc_out = new_fvec(N_MFCC);
-        aubio_mfcc_do(mfcc, fft_output, mfcc_out);
-
-        // Normalize MFCC values (to match Librosa)
-        for (int i = 0; i < N_MFCC; i++) {
-            float value = mfcc_out->data[i];
-
-            // Ensure valid value before log-scaling
-            if (std::isnan(value) || value < 1e-6) {
-                value = 1e-6;  // Prevent log(0) or negative values
-            }
-
-            // Apply log-scaling (to match Librosa's feature extraction)
-            float log_mfcc = logf(value + 1e-6);
-
-            // Adjust normalization to match Librosa
-            mfcc_sum[i] += (log_mfcc * 80.0) / 4.5;  // Final adjustment
-        }
-
-        del_fvec(mfcc_out);
-        frame_count++;
-    }
-
-    // Compute mean MFCCs (to match Librosa's feature vector)
-    if (frame_count > 0) {
-        for (int i = 0; i < N_MFCC; i++) {
-            mfcc_features[i] = mfcc_sum[i] / frame_count;
-        }
-    }
-
-    // Cleanup
-    sf_close(file);
-    del_aubio_fft(fft);
-    del_cvec(fft_output);
-    del_aubio_mfcc(mfcc);
-    del_fvec(input);
-
-    return mfcc_features;
-}
-
