@@ -60,31 +60,6 @@ static Vectorf pad(Vectorf &x, int left, int right, const std::string &mode, flo
       x_paded[i] = x[left-i-1];
     }
     for (int i = left; i < left+right; ++i){
-      x_paded[i+x.size()] = x[x.size()-1-i+left];
-    }
-  }
-
-  if (mode.compare("edge") == 0){
-    for (int i = 0; i < left; ++i){
-      x_paded[i] = x[0];
-    }
-    for (int i = left; i < left+right; ++i){
-      x_paded[i+x.size()] = x[x.size()-1];
-    }
-  }
-  return x_paded;
-}
-
-static Matrixcf stft(Vectorf &x, int n_fft, int n_hop, const std::string &win, bool center, const std::string &mode){
-  // hanning
-  Vectorf window = 0.5*(1.f-(Vectorf::LinSpaced(n_fft, 0.f, static_cast<float>(n_fft-1))*2.f*M_PI/n_fft).array().cos());
-
-  int pad_len = center ? n_fft / 2 : 0;
-  Vectorf x_paded = pad(x, pad_len, pad_len, mode, 0.f);
-
-  int n_f = n_fft/2+1;
-  int n_frames = 1+(x_paded.size()-n_fft) / n_hop;
-  Matrixcf X(n_frames, n_fft);
   Eigen::FFT<float> fft;
 
   for (int i = 0; i < n_frames; ++i){
@@ -167,8 +142,8 @@ static Matrixf dct(Matrixf& x, bool norm, int type) {
   Matrixf dct = x*coeff.transpose();
   // ortho
   if (norm) {
-    Vectorf ortho = Vectorf::Constant(N, std::sqrtf(0.5f/N));
-    ortho[0] = std::sqrtf(0.25f/N);
+    Vectorf ortho = Vectorf::Constant(N, std::sqrt(0.5f/N));
+    ortho[0] = std::sqrt(0.25f/N);
     dct = dct*ortho.asDiagonal();
   }
   return dct;
