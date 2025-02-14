@@ -20,7 +20,7 @@ N_MFCC = 40          # Number of MFCCs to extract
 EMOTIONS = ["belly_pain", "burping", "discomfort", "hungry", "tired"]
 
 # LOAD KERAS MODEL --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-model = keras.models.load_model(MODEL_PATH+"augmented_baby_emotions_model.keras") # ADD "augmented_" or "expanded_" to test different versions of the model
+model = keras.models.load_model(MODEL_PATH+"NEW_baby_emotions_model.keras") # ADD "augmented_" or "expanded_" to test different versions of the model
 
 # EXRACT AUDIO FEATURES ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def extract_features(file_path):
@@ -107,6 +107,7 @@ def predictFromFile(file_path):
     
     # Return the predicted emotion label
     return EMOTIONS[predicted_class[0]]
+    
 # TEST TEXT FILE
 def test_txt(audio_file,emotions):
     # Predict the emotion
