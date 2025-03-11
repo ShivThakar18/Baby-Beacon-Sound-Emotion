@@ -3,7 +3,7 @@
 #include <aubio/aubio.h>
 #include <sndfile.h>
 #include <fstream>
-#include <python3.12/Python.h>
+//#include <python3.12/Python.h>
 #include <filesystem>
 //#include "../librosa/librosa.h"
 #include <cmath>
@@ -23,6 +23,6 @@
 
 std::vector<float> extract_mfcc2(const char* filename);
 int export_mfccFile(std::vector<float> mfcc_features, const char* txtFile);
-int pyPredict_Emotions();
+//int pyPredict_Emotions();
 
 std::vector<float> extract_mfcc(const char* filename);

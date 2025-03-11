@@ -1,5 +1,5 @@
 #include "../include/ADProcess_BabySounds.h"
-#include <python3.12/Python.h>
+//#include <python3.12/Python.h>
 
 /* std::vector<float> extract_mfcc(const char* filename){
 
@@ -119,7 +119,7 @@ std::vector<float> extract_mfcc(const char* filename){
     return mfcc_features;
 }
 
-int pyPredict_Emotions(){
+/*int pyPredict_Emotions(){
         
     Py_Initialize(); // Initialize Python interpreter
 
@@ -166,7 +166,7 @@ int pyPredict_Emotions(){
 
     Py_Finalize(); // Shutdown Python interpreter
     return 0;
-}
+}*/
 
 int export_mfccFile(std::vector<float> mfcc_features, const char* txtFile){
 
