@@ -1,11 +1,11 @@
 import numpy as np
 import os
-import librosa.display
+#import librosa.display
 import tensorflow as tf
 from tensorflow.keras import models, layers, utils
 
 # CONSTANTS -------------------------------------------------------------------
-DIR = "C:/Users/shivt/Code/BabyBeacon/Baby-Beacon-Sound-Emotion/"
+DIR = "/home/raspberry/Documents/Baby-Beacon-Sound-Emotion/"
 AUDIO_PATH = os.path.join(DIR, "data", "dataset", "expanded_dataset")
 OUTPUT_PATH = os.path.join(DIR, "output")
 MODEL_PATH = os.path.join(DIR, "model")
@@ -34,7 +34,7 @@ for idx, emotion in enumerate(EMOTIONS):
         file_path = os.path.join(folder_path, file)
         features.append(extract_txtFile(file_path))
         labels.append(idx)
-
+#/home/raspberry/Documents/Baby-Beacon-Sound-Emotion/output/belly_pain
 # Convert to NumPy arrays
 features = np.array(features)
 labels = np.array(labels)
