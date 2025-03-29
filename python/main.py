@@ -3,28 +3,33 @@ import shutil
 import glob
 import symptomPrediction 
 
-OUTPUT_DIR = os.getcwd() + "\\output\\"
+OUTPUT_DIR = symptomPrediction.DIR + "/output/"
 filename = "mfcc_features.txt"
 
 print("DIR: "+str(OUTPUT_DIR))
 
-while(True):
+flag = 1
 
-    inputFile = glob.glob(f"{OUTPUT_DIR}/*{filename}*")[0] # Search with pattern matching
+while(True):
+        
+    inputFile = glob.glob(f"{OUTPUT_DIR}/*{filename}*") # Search with pattern matching
+    if flag == 1:
+        print("Waiting for input file....")
+        flag = 0 
+        
     if inputFile:
-        print(f"File(s) found: {inputFile}")
-        emotion = symptomPrediction.predictFromFile(inputFile)
+        print(f"File(s) found: {inputFile[0]}")
+        emotion = symptomPrediction.predictFromFile(inputFile[0])
         print("emotion: "+emotion)
-        os.remove(inputFile)
+        os.remove(inputFile[0])
 
         cppInput = open(OUTPUT_DIR+"predicted_symptom.txt","w")
         cppInput.write(emotion)
         cppInput.close()
-
-        break
-
+        flag = 1
     else:
-        print(f"File '{filename}' not found")
-        break
+        flag = 0
+        continue
+        
 
 

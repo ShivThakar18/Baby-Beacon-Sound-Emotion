@@ -8,7 +8,7 @@ std::vector<float> extract_mfcc(const char* filename){
     SNDFILE* file = sf_open(filename, SFM_READ, &sfinfo);
     if (!file) {
         std::cerr << "Error opening audio file!\n";
-        return mfcc_features;
+        exit(1);
     }
 
     // Initialize Aubio buffers
@@ -85,13 +85,12 @@ std::string readPredication(const char* filename){
 
     if(!FILE){ // error detection
         std::cerr << "Error: Could not open file " << filename << std::endl; 
-        return 1;
+        return "1";
     }
 
     std::string line; 
 
     std::getline(FILE,line); // get the first line of the file
-    std::cout << "Read Line: '" << line << "'" << std::endl; 
     FILE.close(); 
 
     // Delete the file after reading its content

@@ -1,4 +1,3 @@
-#include <opencv4/opencv2/opencv.hpp> // import opencv files 
 #include <stdlib.h>
 #include <iostream>
 #include <portaudio.h>

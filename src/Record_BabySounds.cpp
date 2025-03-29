@@ -39,7 +39,7 @@ int record(){
     SNDFILE *FILE = sf_open(FILENAME, SFM_WRITE, &sfinfo);
     if(!FILE){
         std::cerr << "Error Opening Output File! \n";
-        return 1; 
+        exit(1);
     }
 
     sf_write_short(FILE, data.samples.data(), data.samples.size());

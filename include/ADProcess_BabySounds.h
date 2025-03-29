@@ -14,13 +14,13 @@
 #define N_FILTERS 42       // Match Librosa Mel filters (N_MFCC + 2)
 #define N_MFCC 40          // Number of MFCC coefficients
 
-namespace fs = std::filesystem;
+//namespace fs = std::filesystem;
 
-#define CWD fs::current_path()
+#define CWD "/home/raspberry/BabyEmotionRecognition/"
 
-#define ADP_FILENAME (CWD / "data/testing_data/belly_pain.wav").string()
-#define MFCC_FILE (CWD / "output/mfcc_features.txt").string()
-#define INPUT_FILE (CWD / "output/predicted_symptom.txt").string()
+#define ADP_FILENAME "/home/raspberry/BabyEmotionRecognition/recording.wav"
+#define MFCC_FILE "/home/raspberry/BabyEmotionRecognition/output/mfcc_features.txt"
+#define INPUT_FILE "/home/raspberry/BabyEmotionRecognition/output/predicted_symptom.txt"
 
 int export_mfccFile(std::vector<float> mfcc_features, const char* txtFile);
 std::vector<float> extract_mfcc(const char* filename);

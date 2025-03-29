@@ -133,16 +133,6 @@ Test Accuracy: 71.929%
 *Expanded Model Testing in testingModel.py*
 
 ## C++ Audio Processing / Recognition
-The C++ Audio Processing component can be broken down into two components. First, the recording of actual live data in the baby seat. Second, the mfcc features extraction to be sent through the AI Model. Due to some setbacks we had to adjust our process in using C++. We now must use C++ in tandem with Python. This will result in a slower overall runtime, but due to our contraints, there isn't much that can be done. The workflow goes as follows: 
-
-1. Sound is recorded as 10 second clips
-2. MFCC Spectrogram Data is extracted from the .wav file
-3. Extracted data is written to a txt file in /output/mfcc_features.txt
-4. Python is always running in the background with the Keras model loaded
-5. Python will pick up a new mfcc_features.txt file and save these data points as a list
-6. This list is passed into the AI Model
-7. AI Model predicts the emotion/symptom and writes the emotion to a file in /output/predicted_symptom.txt
-8. C++ will read predicted_symptom.txt and save the emotion as a string which will be processed further 
 
 ## Compile and Run
 ### Dependencies 
